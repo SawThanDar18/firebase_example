@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "8099622512",
+    "project_id": "social-media-app-571bf",
+    "storage_bucket": "social-media-app-571bf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:8099622512:android:1a9a015763e427745c0eb5",
+        "android_client_info": {
+          "package_name": "com.sawthandar.mm.firebase_padc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "8099622512-e5950mo1brvcgu8oggj2a8bosha2fgd2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCE2ouzpqgkeYeg7j7UO-jjgIqataA5arU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "8099622512-e5950mo1brvcgu8oggj2a8bosha2fgd2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
