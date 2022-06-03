@@ -5,7 +5,7 @@ part 'user_vo.g.dart';
 @JsonSerializable()
 class UserVO {
   @JsonKey(name: "id")
-  int? id;
+  String? id;
 
   @JsonKey(name: "user_name")
   String? userName;

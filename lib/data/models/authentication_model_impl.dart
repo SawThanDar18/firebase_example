@@ -18,7 +18,7 @@ class AuthenticationModelImpl extends AuthenticationModel {
 
   @override
   Future<void> login(String email, String password) {
-    return Future.value();
+    return mDataAgent.login(email, password);
   }
 
   @override
@@ -28,13 +28,29 @@ class AuthenticationModelImpl extends AuthenticationModel {
   }
 
   Future<UserVO> craftUserVO(String email, String password, String userName) {
-    var currentMilliseconds = DateTime.now().millisecondsSinceEpoch;
+    //var currentMilliseconds = DateTime.now().millisecondsSinceEpoch;
     var newUser = UserVO(
-      id: currentMilliseconds,
+      //id: currentMilliseconds,
+      id: "",
       userName: userName,
       email: email,
       password: password,
     );
     return Future.value(newUser);
+  }
+
+  @override
+  UserVO getLoggedInUser() {
+    return mDataAgent.getLoggedInUser();
+  }
+
+  @override
+  bool isLoggedIn() {
+    return mDataAgent.isLoggedIn();
+  }
+
+  @override
+  Future<void> logOut() {
+    return mDataAgent.logOut();
   }
 }

@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:firebase_padc/data/models/authentication_model.dart';
+import 'package:firebase_padc/data/models/authentication_model_impl.dart';
 import 'package:firebase_padc/data/models/social_model.dart';
 import 'package:firebase_padc/network/cloud_firestore_data_agent_impl.dart';
 
@@ -18,6 +20,7 @@ class SocialModelImpl extends SocialModel {
 
   //SocialDataAgent mDataAgent = RealtimeDatabaseDataAgentImpl();
   SocialDataAgent mDataAgent = CloudFireStoreDataAgentImpl();
+  final AuthenticationModel _authenticationModel = AuthenticationModelImpl();
 
   @override
   Stream<List<NewsFeedVO>> getNewsFeed() {
@@ -41,7 +44,7 @@ class SocialModelImpl extends SocialModel {
     var currentMilliseconds = DateTime.now().millisecondsSinceEpoch;
     var newPost = NewsFeedVO(
       id: currentMilliseconds,
-      userName: "Saw Thandar",
+      userName: _authenticationModel.getLoggedInUser().userName,
       postImage: imageUrl,
       description: description,
       profilePicture:

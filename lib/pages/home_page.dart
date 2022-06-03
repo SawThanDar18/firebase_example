@@ -6,6 +6,7 @@ import '../blocs/news_feed_bloc.dart';
 import '../resources/dimens.dart';
 import '../viewitems/news_feed_item_view.dart';
 import 'add_new_post_page.dart';
+import 'login_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -18,6 +19,7 @@ class HomePage extends StatelessWidget {
         appBar: AppBar(
           centerTitle: false,
           elevation: 0.0,
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
           title: Container(
             margin: const EdgeInsets.only(
@@ -25,6 +27,7 @@ class HomePage extends StatelessWidget {
             ),
             child: const Text(
               "Social",
+              textAlign: TextAlign.start,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: TEXT_HEADING_1X,
@@ -45,7 +48,25 @@ class HomePage extends StatelessWidget {
                   size: MARGIN_LARGE,
                 ),
               ),
-            )
+            ),
+            Consumer<NewsFeedBloc>(
+              builder: (context, bloc, child) => GestureDetector(
+                onTap: () {
+                  bloc.onTapLogout().then(
+                      (_) => navigateToScreen(context, const LoginPage()));
+                },
+                child: Container(
+                  margin: const EdgeInsets.only(
+                    right: MARGIN_LARGE,
+                  ),
+                  child: const Icon(
+                    Icons.logout,
+                    color: Colors.red,
+                    size: MARGIN_LARGE,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
         floatingActionButton: FloatingActionButton(
@@ -75,7 +96,11 @@ class HomePage extends StatelessWidget {
                   onTapEdit: (newsFeedId) {
                     Future.delayed(const Duration(milliseconds: 1000))
                         .then((value) {
-                          navigateToScreen(context, AddNewPostPage(newsFeedId: newsFeedId,));
+                      navigateToScreen(
+                          context,
+                          AddNewPostPage(
+                            newsFeedId: newsFeedId,
+                          ));
                     });
                   },
                 );
@@ -92,5 +117,4 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
-
 }

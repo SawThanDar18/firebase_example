@@ -1,10 +1,13 @@
 import 'dart:io';
 
+import 'package:firebase_padc/data/models/authentication_model_impl.dart';
 import 'package:flutter/foundation.dart';
 
+import '../data/models/authentication_model.dart';
 import '../data/models/social_model.dart';
 import '../data/models/social_model_impl.dart';
 import '../data/vos/news_feed_vo.dart';
+import '../data/vos/user_vo.dart';
 
 class AddNewPostBloc extends ChangeNotifier {
   String newPostDescription = "";
@@ -19,9 +22,13 @@ class AddNewPostBloc extends ChangeNotifier {
 
   File? chosenImageFile;
 
+  UserVO? _loggedInUser;
+
   final SocialModel _model = SocialModelImpl();
+  final AuthenticationModel _authenticationModel = AuthenticationModelImpl();
 
   AddNewPostBloc({int? newsFeedId}) {
+    _loggedInUser = _authenticationModel.getLoggedInUser();
     if (newsFeedId != null) {
       isInEditMode = true;
       _prepopulateDataForEditMode(newsFeedId);
@@ -31,7 +38,7 @@ class AddNewPostBloc extends ChangeNotifier {
   }
 
   void _prepopulateDataForAddNewPost() {
-    userName = "Saw Thandar";
+    userName = _loggedInUser?.userName ?? "";
     profilePicture =
         "https://shadowashspiritflame.files.wordpress.com/2016/01/sadness-inside-out.jpg";
     _notifySafely();

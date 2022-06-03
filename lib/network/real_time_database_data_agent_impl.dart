@@ -76,10 +76,14 @@ class RealtimeDatabaseDataAgentImpl extends SocialDataAgent {
   Future registerNewUser(UserVO newUser) {
     return auth
         .createUserWithEmailAndPassword(
-        email: newUser.email ?? "", password: newUser.password ?? "")
+            email: newUser.email ?? "", password: newUser.password ?? "")
         .then((credential) =>
-    credential.user?..updateDisplayName(newUser.userName))
-        .then((_) => _addNewUser(newUser));
+            credential.user?..updateDisplayName(newUser.userName))
+        //.then((_) => _addNewUser(newUser));
+        .then((user) {
+      newUser.id = user?.uid ?? "";
+      _addNewUser(newUser);
+    });
   }
 
   Future<void> _addNewUser(UserVO newUser) {
@@ -87,5 +91,29 @@ class RealtimeDatabaseDataAgentImpl extends SocialDataAgent {
         .child(usersPath)
         .child(newUser.id.toString())
         .set(newUser.toJson());
+  }
+
+  @override
+  Future login(String email, String password) {
+    return auth.signInWithEmailAndPassword(email: email, password: password);
+  }
+
+  @override
+  bool isLoggedIn() {
+    return auth.currentUser != null;
+  }
+
+  @override
+  UserVO getLoggedInUser() {
+    return UserVO(
+      id: auth.currentUser?.uid,
+      email: auth.currentUser?.email,
+      userName: auth.currentUser?.displayName,
+    );
+  }
+
+  @override
+  Future logOut() {
+    return auth.signOut();
   }
 }
