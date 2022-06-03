@@ -19,6 +19,7 @@ class NewsFeedItemView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
@@ -45,8 +46,11 @@ class NewsFeedItemView extends StatelessWidget {
         const SizedBox(
           height: MARGIN_MEDIUM_2,
         ),
-        PostImageView(
-          postImage: mNewsFeed?.postImage ?? "",
+        Visibility(
+          visible: ((mNewsFeed?.postImage ?? "").isNotEmpty),
+          child: PostImageView(
+            postImage: mNewsFeed?.postImage ?? "",
+          ),
         ),
         const SizedBox(
           height: MARGIN_MEDIUM_2,

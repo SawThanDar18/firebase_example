@@ -5,12 +5,15 @@ import 'package:firebase_padc/network/social_data_agent.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 import '../data/vos/news_feed_vo.dart';
+import '../data/vos/user_vo.dart';
 
 const newsFeedCollection = "newsfeed";
 const fileUploadRef = "uploads";
 
 class CloudFireStoreDataAgentImpl extends SocialDataAgent {
+
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
+  var firebaseStorage = FirebaseStorage.instance;
 
   @override
   Stream<List<NewsFeedVO>> getNewsFeed() {
@@ -55,10 +58,15 @@ class CloudFireStoreDataAgentImpl extends SocialDataAgent {
 
   @override
   Future<String> uploadFileToFirebase(File image) {
-    return FirebaseStorage.instance
+    return firebaseStorage
         .ref(fileUploadRef)
         .child("${DateTime.now().millisecondsSinceEpoch}")
         .putFile(image)
         .then((taskSnapshot) => taskSnapshot.ref.getDownloadURL());
+  }
+
+  @override
+  Future registerNewUser(UserVO newUser) {
+    return Future.value();
   }
 }

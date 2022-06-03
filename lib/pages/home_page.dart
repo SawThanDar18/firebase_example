@@ -1,3 +1,4 @@
+import 'package:firebase_padc/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -50,7 +51,7 @@ class HomePage extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.black,
           onPressed: () {
-            _navigateToAddNewPostPage(context);
+            navigateToScreen(context, const AddNewPostPage());
           },
           child: const Icon(
             Icons.add,
@@ -74,7 +75,7 @@ class HomePage extends StatelessWidget {
                   onTapEdit: (newsFeedId) {
                     Future.delayed(const Duration(milliseconds: 1000))
                         .then((value) {
-                      _navigateToEditPostPage(context, newsFeedId);
+                          navigateToScreen(context, AddNewPostPage(newsFeedId: newsFeedId,));
                     });
                   },
                 );
@@ -92,21 +93,4 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  void _navigateToAddNewPostPage(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const AddNewPostPage(),
-      ),
-    );
-  }
-
-  void _navigateToEditPostPage(BuildContext context, int newsFeedId) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => AddNewPostPage(
-          newsFeedId: newsFeedId,
-        ),
-      ),
-    );
-  }
 }

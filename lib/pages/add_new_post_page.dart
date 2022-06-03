@@ -72,11 +72,11 @@ class AddNewPostPage extends StatelessWidget {
                       SizedBox(
                         height: MARGIN_MEDIUM_2,
                       ),
-                      PostImageView(),
+                      PostDescriptionErrorView(),
                       SizedBox(
                         height: MARGIN_MEDIUM_2,
                       ),
-                      PostDescriptionErrorView(),
+                      PostImageView(),
                       SizedBox(
                         height: MARGIN_LARGE,
                       ),

@@ -1,4 +1,5 @@
 import 'package:firebase_padc/pages/home_page.dart';
+import 'package:firebase_padc/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.blue,
           fontFamily: GoogleFonts.ubuntu().fontFamily),
-      home: const HomePage(),
+      home: const LoginPage(),
     );
   }
 }
