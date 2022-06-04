@@ -7,7 +7,9 @@ import 'package:provider/provider.dart';
 
 import '../blocs/add_new_post_bloc.dart';
 import '../resources/dimens.dart';
+import '../resources/strings.dart';
 import '../viewitems/news_feed_item_view.dart';
+import '../widgets/primary_button_view.dart';
 
 class AddNewPostPage extends StatelessWidget {
   final int? newsFeedId;
@@ -230,25 +232,9 @@ class PostButtonView extends StatelessWidget {
             Navigator.pop(context);
           });
         },
-        child: Container(
-          width: double.infinity,
-          height: MARGIN_XXLARGE,
-          decoration: BoxDecoration(
-            color: Colors.black,
-            borderRadius: BorderRadius.circular(
-              MARGIN_LARGE,
-            ),
-          ),
-          child: const Center(
-            child: Text(
-              "POST",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: TEXT_REGULAR_2X,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
+        child: PrimaryButtonView(
+          label: LBL_POST,
+          themeColor: bloc.themeColor,
         ),
       ),
     );

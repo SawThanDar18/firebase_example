@@ -13,3 +13,5 @@ const LBL_OR = "OR";
 
 /// Post
 const LBL_POST = "POST";
+const LBL_BACK = "Back";
+const LBL_CHOOSE_IMAGE = "Choose Image";

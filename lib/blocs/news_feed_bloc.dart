@@ -1,6 +1,7 @@
 import 'package:firebase_padc/data/models/authentication_model.dart';
 import 'package:flutter/foundation.dart';
 
+import '../analytics/firebase_analytics_tracker.dart';
 import '../data/models/authentication_model_impl.dart';
 import '../data/models/social_model.dart';
 import '../data/models/social_model_impl.dart';
@@ -21,6 +22,11 @@ class NewsFeedBloc extends ChangeNotifier {
         notifyListeners();
       }
     });
+    _sendAnalyticsData();
+  }
+
+  void _sendAnalyticsData() async {
+    await FirebaseAnalyticsTracker().logEvent(homeScreenReached, null);
   }
 
   void onTapDeletePost(int postId) async {

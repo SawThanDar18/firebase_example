@@ -1,3 +1,4 @@
+import 'package:firebase_padc/pages/text_recognition_page.dart';
 import 'package:firebase_padc/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -37,6 +38,20 @@ class HomePage extends StatelessWidget {
           ),
           actions: [
             GestureDetector(
+              onTap: () =>
+                  navigateToScreen(context, const TextRecognitionPage()),
+              child: Container(
+                margin: const EdgeInsets.only(
+                  right: MARGIN_LARGE,
+                ),
+                child: const Icon(
+                  Icons.face_outlined,
+                  color: Colors.grey,
+                  size: MARGIN_LARGE,
+                ),
+              ),
+            ),
+            GestureDetector(
               onTap: () {},
               child: Container(
                 margin: const EdgeInsets.only(
@@ -73,6 +88,7 @@ class HomePage extends StatelessWidget {
           backgroundColor: Colors.black,
           onPressed: () {
             navigateToScreen(context, const AddNewPostPage());
+            //FirebaseCrashlytics.instance.crash();
           },
           child: const Icon(
             Icons.add,

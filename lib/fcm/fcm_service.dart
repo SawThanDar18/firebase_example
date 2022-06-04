@@ -36,6 +36,9 @@ class FCMService {
       const AndroidInitializationSettings('ic_launcher');
 
   void listenForMessages() async {
+    await requestNotificationPermissionForIOS();
+    await turnOnIOSForegroundNotification();
+
     await initFlutterLocalNotification();
     await registerChannel();
 
@@ -50,29 +53,53 @@ class FCMService {
 
       if (notification != null && android != null) {
         flutterLocalNotificationsPlugin.show(
-            notification.hashCode,
-            notification.title,
-            notification.body,
-            NotificationDetails(
-              android: AndroidNotificationDetails(
-                channel.id,
-                channel.name,
-                channelDescription: channel.description,
-                icon: android.smallIcon,
-              ),
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          NotificationDetails(
+            android: AndroidNotificationDetails(
+              channel.id,
+              channel.name,
+              channelDescription: channel.description,
+              icon: android.smallIcon,
             ),
-            payload: "This is notification payLoad");
+          ),
+          payload: remoteMessage.data['post_id'].toString(),
+        );
       }
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((remoteMessage) {
       debugPrint(
-          "User pressed the notification ${remoteMessage.notification?.title}");
+          "User pressed the notification ${remoteMessage.data['post_id']}");
     });
 
     messaging.getInitialMessage().then((remoteMessage) {
-      debugPrint("Message Launched ${remoteMessage?.notification?.title}");
+      debugPrint("Message Launched ${remoteMessage?.data['post_id']}");
     });
+  }
+
+  /// Request Notification Permission For IOS
+  Future requestNotificationPermissionForIOS() {
+    return messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+  }
+
+  /// Turn IoS Foreground Notification
+  Future turnOnIOSForegroundNotification() {
+    return FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: true, // Required to display a heads up notification
+      badge: true,
+      sound: true,
+    );
   }
 
   Future initFlutterLocalNotification() {
@@ -83,8 +110,8 @@ class FCMService {
       macOS: null,
     );
     return flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: (notification) {
-      debugPrint("Local Notification Clicked =====> $notification");
+        onSelectNotification: (payload) {
+      debugPrint("Local Notification Clicked =====> $payload");
     });
   }
 

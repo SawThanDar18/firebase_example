@@ -1,3 +1,4 @@
+import 'package:firebase_installations/firebase_installations.dart';
 import 'package:firebase_padc/data/models/authentication_model_impl.dart';
 import 'package:firebase_padc/pages/home_page.dart';
 import 'package:firebase_padc/pages/login_page.dart';
@@ -11,6 +12,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   FCMService().listenForMessages();
+  var firebaseInstallationId =
+      await FirebaseInstallations.id ?? 'Unknown installation id';
+  debugPrint("Firebase Installation id =====> $firebaseInstallationId");
   runApp(MyApp());
 }
 
